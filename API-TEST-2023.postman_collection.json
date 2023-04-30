@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "8aa861c1-b5a3-4aa0-982d-64fc50054e72",
+		"name": "API-TEST-2023",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14309444"
+	},
+	"item": [
+		{
+			"name": "Create an account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// email",
+							"var fname = 'QATest';",
+							"var domain = '@taltektc.com'",
+							"var randomNumber = _.random(1000, 50000);",
+							"var fullEmail = fname+randomNumber+domain;",
+							"console.log(fullEmail);",
+							"pm.environment.set('fakeEmail', fullEmail);",
+							"",
+							"// firstname",
+							"var randomFName = pm.variables.replaceIn('{{$randomFirstName}}');",
+							"pm.environment.set('fakeFName', randomFName);",
+							"",
+							"// Last Name",
+							"var randomLName = pm.variables.replaceIn('{{$randomLastName}}');",
+							"pm.environment.set('fakeLName', randomLName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\" : \"{{fakeFName}}\",\n    \"lastName\" : \"{{fakeLName}}\",\n    \"email\"     : \"{{fakeEmail}}\",\n    \"password\"  : \"123456\",\n    \"confirmPassword\"  : \"123456\",\n    \"dob\"       : {\n        \"year\"      : 2013,\n        \"month\"     : 12,\n        \"day\"       : 31\n    },\n    \"gender\"    : \"male\",\n    \"agree\"     : true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/signupxxx",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"signupxxx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with ID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\" : \"TTC6ixaO\",\n    \"password\" : \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"tokenTest1@gmail.com\",\n    \"password\" : \"1234567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update information",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcWEudGFsdGVrdGMuY29tIiwiYXVkIjoiVEhFX0FVRElFTkNFIiwiaWF0IjoxNjgyODY4OTc0LCJuYmYiOjE2ODI4Njg5ODQsImV4cCI6MTY4Mjk1NTM3NCwiaXNfYWRtaW4iOmZhbHNlLCJkYXRhIjp7ImlkIjoiMTIiLCJmaXJzdF9uYW1lIjoiSXFiYWwiLCJsYXN0X25hbWUiOiJEb2UiLCJlbWFpbCI6InRva2VuVGVzdDFAZ21haWwuY29tIiwic3R1ZGVudElkIjoiVFRDWFVPbTMifX0.d5cTENt2VO2qRCzKhY1LpmpRENieJbt0o-7EVGEHBL8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\" : \"Updated\",\n    \"lastName\" : \"viaAPI\",\n    \"email\"     : \"tokenTest1@gmail.com\",\n    \"dob\"       : {\n        \"year\"      : 1988,\n        \"month\"     : 1,\n        \"day\"       : 10\n    },\n    \"gender\"    : \"female\",\n    \"agree\"     : true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/student/TTCXUOm3",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"student",
+						"TTCXUOm3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcWEudGFsdGVrdGMuY29tIiwiYXVkIjoiVEhFX0FVRElFTkNFIiwiaWF0IjoxNjgyODY5NTE2LCJuYmYiOjE2ODI4Njk1MjYsImV4cCI6MTY4Mjk1NTkxNiwiaXNfYWRtaW4iOmZhbHNlLCJkYXRhIjp7ImlkIjoiMTIiLCJmaXJzdF9uYW1lIjoiVXBkYXRlZCIsImxhc3RfbmFtZSI6InZpYUFQSSIsImVtYWlsIjoidG9rZW5UZXN0MUBnbWFpbC5jb20iLCJzdHVkZW50SWQiOiJUVENYVU9tMyJ9fQ.IWem2TVaRB98duyoE7sULkfutYt7c_GIvUgK1ce1Oyo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\"  : \"1234567\",\n    \"confirmPassword\"  : \"1234567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/updatePassword/TTCXUOm3",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"updatePassword",
+						"TTCXUOm3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single student info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcWEudGFsdGVrdGMuY29tIiwiYXVkIjoiVEhFX0FVRElFTkNFIiwiaWF0IjoxNjgxNjYzNzAzLCJuYmYiOjE2ODE2NjM3MTMsImV4cCI6MTY4MTc1MDEwMywiaXNfYWRtaW4iOmZhbHNlLCJkYXRhIjp7ImlkIjoiMiIsImZpcnN0X25hbWUiOiJJcWJhbCIsImxhc3RfbmFtZSI6IkRvZSIsImVtYWlsIjoidG9rZW5UZXN0MUBnbWFpbC5jb20iLCJzdHVkZW50SWQiOiJUVEM2aXhhTyJ9fQ._RZ2Z2UxT8TmIIocmqNhLxUf-UPxjtuescBKjXlB1XI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/student/TTC6ixaO",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"student",
+						"TTC6ixaO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of students",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/students",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove student from db",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcWEudGFsdGVrdGMuY29tIiwiYXVkIjoiVEhFX0FVRElFTkNFIiwiaWF0IjoxNjgxNjYzNzAzLCJuYmYiOjE2ODE2NjM3MTMsImV4cCI6MTY4MTc1MDEwMywiaXNfYWRtaW4iOmZhbHNlLCJkYXRhIjp7ImlkIjoiMiIsImZpcnN0X25hbWUiOiJJcWJhbCIsImxhc3RfbmFtZSI6IkRvZSIsImVtYWlsIjoidG9rZW5UZXN0MUBnbWFpbC5jb20iLCJzdHVkZW50SWQiOiJUVEM2aXhhTyJ9fQ._RZ2Z2UxT8TmIIocmqNhLxUf-UPxjtuescBKjXlB1XI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/student/TTC6ixaO",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"student",
+						"TTC6ixaO"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
