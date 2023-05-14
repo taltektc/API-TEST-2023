@@ -194,6 +194,21 @@
 		},
 		{
 			"name": "Get Single student info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Verify my firstname is correct or not\", function () {",
+							"    pm.expect(jsonData.data.firstName).to.be.eql(environment.fakeFName);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
